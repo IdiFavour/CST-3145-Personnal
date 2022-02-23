@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Collapsible wrapper -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Navbar brand -->
+
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h4 class="nav-link h5 text-black">CST 3145</h4>
+                        </li>
+                    </ul>
+                    <!-- Left links -->
+                </div>
+                <!-- Collapsible wrapper -->
+
+                <!-- Right elements -->
+                <div class="d-flex align-items-center">
+                    <!-- Icon -->
+                    <a class="text-reset me-3" v-on:click="showCheckout">
+                        <i class="fas fa-shopping-cart fs-5"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                    </a>
+
+                </div>
+                <!-- Right elements -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <div class="container">
+            <div v-if="showProduct">
+                <div class="row">
+                    <h4>Sort By</h4>
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input class="form-check-input" value="Subject" type="radio"
+                                id="subject" v-model="method"/>
+                            <label class="form-check-label" for="subject">Subject</label>
+                        </div>
+
+                        <!-- Default checked radio -->
+                        <div class="form-check">
+                            <input class="form-check-input" value="Location" type="radio"
+                                id="location" v-model="method" />
+                            <label class="form-check-label" for="location">Location</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="Price" type="radio"
+                                id="price" v-model="method" />
+                            <label class="form-check-label" for="price">Price</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="Availability" type="radio"
+                                id="availability" v-model="method" />
+                            <label class="form-check-label" for="availability">Availability</label>
+                        </div>
+                        <br>
+                        <div class="form-check">
+                            <input class="form-check-input" value="Ascending" type="radio"
+                                id="ascending" v-model="method" />
+                            <label class="form-check-label" for="ascending">Ascending</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="Descending" type="radio"
+                                id="descending" v-model="method" />
+                            <label class="form-check-label" for="descending">Descending</label>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <form class="form-a">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <input type="text"
+                                            class="form-control p-2 ps-3 rounded-0 shadow-0 form-control-lg form-control-a"
+                                            placeholder="Search Lesson">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <select
+                                            class="form-control p-2 bg-white ps-3 form-select rounded-0 shadow-0 form-control-a form-control-lg"
+                                            id="Type">
+                                            <option>--Location--</option>
+                                            <option>London</option>
+                                            <option>York</option>
+                                            <option>Oxford</option>
+                                            <option>Bristol</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <select
+                                            class="form-control p-2 bg-white ps-3 form-select rounded-0 shadow-0 form-control-a form-control-lg"
+                                            id="Type">
+                                            <option>--Subject--</option>
+                                            <option>Math</option>
+                                            <option>English</option>
+                                            <option>Music</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+            </div>
+            <div v-else>
+                <h2>Checkout</h2>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var webstore = new Vue({
+            el: '#app',
+            data: {
+                showProduct: true,
+                method: 'Subject'
+            },
+            methods: {
+                showCheckout() {
+                    this.showProduct = this.showProduct ? false : true;
+                },
+            }
+        });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+</body>
+
+</html>
