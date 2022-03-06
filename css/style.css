@@ -14,8 +14,7 @@ body {
     width: 350px;
 }
 
-.image {
-    position: absolute;
-    right: 12px;
-    top: 10px
+.product-list .row{
+    margin-right: 5px!important;
 }
+

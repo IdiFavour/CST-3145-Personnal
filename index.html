@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Toggle button -->
@@ -46,8 +46,8 @@
                 <div class="d-flex align-items-center">
                     <!-- Icon -->
                     <a class="text-reset me-3" v-on:click="showCheckout">
-                        <i class="fas fa-shopping-cart fs-5"></i>
-                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                        <i class="fas fa-shopping-cart fs-4"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger">{{cartItemCount}}</span>
                     </a>
 
                 </div>
@@ -58,62 +58,40 @@
         <div class="container">
             <div v-if="showProduct">
                 <div class="row">
-                    <h4>Sort By</h4>
-                    <div class="col-3">
-                        <div class="form-check">
-                            <input class="form-check-input" value="Subject" type="radio"
-                                id="subject" v-model="method"/>
-                            <label class="form-check-label" for="subject">Subject</label>
-                        </div>
+                    <h4></h4>
+                    <div class="col-lg-2">
 
-                        <!-- Default checked radio -->
                         <div class="form-check">
-                            <input class="form-check-input" value="Location" type="radio"
-                                id="location" v-model="method" />
-                            <label class="form-check-label" for="location">Location</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" value="Price" type="radio"
-                                id="price" v-model="method" />
-                            <label class="form-check-label" for="price">Price</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" value="Availability" type="radio"
-                                id="availability" v-model="method" />
-                            <label class="form-check-label" for="availability">Availability</label>
-                        </div>
-                        <br>
-                        <div class="form-check">
-                            <input class="form-check-input" value="Ascending" type="radio"
-                                id="ascending" v-model="method" />
+                            <input class="form-check-input"  value="Ascending" type="radio" id="ascending"
+                                v-model="lowHigh" />
                             <label class="form-check-label" for="ascending">Ascending</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" value="Descending" type="radio"
-                                id="descending" v-model="method" />
+                            <input class="form-check-input" value="Descending" type="radio" id="descending"
+                                v-model="lowHigh" />
                             <label class="form-check-label" for="descending">Descending</label>
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-lg-10">
                         <form class="form-a">
                             <div class="row">
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
-                                        <input type="text"
+                                        <input type="text" v-model="searchInput"
                                             class="form-control p-2 ps-3 rounded-0 shadow-0 form-control-lg form-control-a"
                                             placeholder="Search Lesson">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
-                                        <select
+                                        <select name="sortBy" v-model="sortBy"
                                             class="form-control p-2 bg-white ps-3 form-select rounded-0 shadow-0 form-control-a form-control-lg"
-                                            id="Type">
-                                            <option>--Location--</option>
-                                            <option>London</option>
-                                            <option>York</option>
-                                            <option>Oxford</option>
-                                            <option>Bristol</option>
+                                            >
+                                            <option>--Sort By--</option>
+                                            <option value="price">Price</option>
+                                            <option value="location">Location</option>
+                                            <option value="avalibility">Avalibility</option>
+                                            <option value="subject">Subject</option>
                                         </select>
                                     </div>
                                 </div>
@@ -129,33 +107,193 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
+                        <div class="product-list">
+                            <div class="row">
+                                <div v-for="lesson in filterLessons()" class="col-lg-4 p-2">
+                                    <div class="p-2 border ">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="mt-2">
+                                                <h4 v-text="lesson.subject"></h4>
+                                                <div class="mt-4">
+                                                    <h5 class=" mb-0" v-text="lesson.location"></h5>
+                                                    <p class="mb-0">Price: ${{lesson.price}}</p>
+                                                    <div>
+                                                        <!-- <span v-for="n in product.rating">★</span> -->
+                                                        <!-- <span v-if="product.rating < 5">★</span> -->
+                                                        <!-- <span v-for="n in 5 - product.rating">☆</span> -->
+                                                    </div>
+                                                    <small class="text-black-50">Stock: {{lesson.stock > 0 ?
+                                                        lesson.stock : "Out of Stock"}}
+                                                    </small>
+                                                    <button class="btn btn-black" v-on:click="addToCart(lesson)"
+                                                        :disabled="lesson.stock < 1"><small>Add to cart</small></button>
+                                                </div>
+                                            </div>
+                                            <div class="image">
+                                                <figure class="mb-0">
+                                                    <img v-bind:src="lesson.image" alt="" width="120" height="160">
+                                                </figure>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- <span v-if="product.stock === cartCount">
+                                            All out
+                                        </span>
+                                        <span v-else-if="product.stock - cartCount < 5">
+                                            Only {{product.stock}} left
+                                        </span>
+                                        <span v-else>Buy Now</span> -->
+                                    </div>
+                                    <!-- <div class="border p-2 text-center">
+                                        <h6>{{lesson.name}}</h6>
+                                        <img src="images/product.png" alt="" width="120" height="180">
+                                        <div class="product-details">
+                                            <small class="text-black-50">Spaces: {{lesson.stock}}</small>
+                                            <p class="mb-0">Price: ${{lesson.price}}</p>
+                                            <p>Location: {{lesson.location}}</p>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-               
+
             </div>
             <div v-else>
                 <h2>Checkout</h2>
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="js/lessons.js"></script>
     <script type="text/javascript">
         var webstore = new Vue({
             el: '#app',
             data: {
                 showProduct: true,
-                method: 'Subject'
+                lowHigh: 'Ascending',
+                lessons: lessons,
+                cart: [],
+                searchInput: '',
+                sortBy: 'price'
+                
             },
             methods: {
                 showCheckout() {
                     this.showProduct = this.showProduct ? false : true;
                 },
+                addToCart(lesson) {
+                    this.cart.push(lesson.id)
+                    lesson.stock -= 1
+                    console.log(this.cart)
+                },
+                cartCount(id) {
+                    let count = 0
+                    for (let i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i] === id) {
+                            count++;
+                        }
+                    }
+                    return count
+                },
+                sortByPrice: function(priceArray){
+                    function compare(a, b) {
+                        if (a.price > b.price)
+                            return 1; 
+                        if (a.price < b.price) 
+                            return -1; 
+                        return 0; 
+                    } 
+                    return priceArray.sort(compare); 
+                }, 
+                sortBySubject: function(subjectArray){
+                    function compare(a, b) {
+                        if (a.subject > b.subject)
+                            return 1; 
+                        if (a.subject < b.subject) 
+                            return -1; 
+                        return 0; 
+                    } 
+                    return subjectArray.sort(compare); 
+                },
+                sortByLocation: function(locationArray){
+                    function compare(a, b) {
+                        if (a.location > b.location)
+                            return 1; 
+                        if (a.location < b.location) 
+                            return -1; 
+                        return 0; 
+                    } 
+                    return locationArray.sort(compare); 
+                },
+                sortByAva: function(avaArray){
+                    function compare(a, b) {
+                        if (a.stock > b.stock)
+                            return 1; 
+                        if (a.stock < b.stock) 
+                            return -1; 
+                        return 0; 
+                    } 
+                    return avaArray.sort(compare); 
+                }, 
+                
+                filterLessons: function() {
+                    let tempLessons = this.lessons
+                    
+                    tempLessons = tempLessons.filter((lesson) => {
+                        return lesson.subject.toLowerCase().match(this.searchInput.toLowerCase()) || lesson.location.toLowerCase().match(this.searchInput.toLowerCase())
+                    })
+                    if(this.sortBy == 'price'){
+                        tempLessons = this.sortByPrice(tempLessons)
+                    }
+                    else if(this.sortBy == 'subject'){
+                        tempLessons = this.sortBySubject(tempLessons)
+                    }
+                    else if(this.sortBy == 'location'){
+                        tempLessons = this.sortByLocation(tempLessons)
+                    }
+                    else if(this.sortBy == 'stock'){
+                        tempLessons = this.sortByAva(tempLessons)
+                    }
+
+                    if (this.lowHigh == 'Ascending'){
+                        return tempLessons
+                    }
+                    else if(this.lowHigh == 'Descending'){
+                        return tempLessons.reverse()
+                    }
+                    return tempLessons
+                }
+                       
+            },
+            computed: {
+                cartItemCount: function () {
+                    return this.cart.length
+                },
+        
+                // sortedArray(){
+                //     let sortedLesson = this.lessons;
+                //     sortedLesson = sortedLesson.sort((a,b) => {
+                //         let na = a.title.toLowerCase(), nb = b.title.toLowerCase()
+                //         if(na < nb){
+                //             return -1
+                //         }
+                //         if(na > nb){
+                //             return 1
+                //         }
+                //         return 0
+                //     })
+                // }
             }
         });
     </script>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
 
 </body>
