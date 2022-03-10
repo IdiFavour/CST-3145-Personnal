@@ -159,6 +159,13 @@
                                         </div>
                                     </div> -->
                                 </div>
+                                <div v-if="filterLessons() == ''">
+                                    <div class="text-center mt-4">
+                                        <img src="images/empty-box.png" alt="" width="160" height="160">
+                                        <p class="mt-2"><strong>{{searchInput}}</strong> not Find</p>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -167,7 +174,66 @@
 
             </div>
             <div v-else>
-                <h2>Checkout</h2>
+                <h2 class="mt-5">Checkout</h2>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-6">
+                            <div class="form-outline mb-4 border mt-4">
+                                <input type="text" id="form5Example1"
+                                    class="form-control" />
+                                <label class="form-label" for="form5Example1">Firstname</label>
+                            </div>
+                            <div class="form-outline mb-4 border">
+                                <input type="text" id="form5Example2" 
+                                    class="form-control" />
+                                <label class="form-label" for="form5Example2">Lastname</label>
+                            </div>
+                        </div>
+
+
+
+                        <br>
+                        <!-- <h2 class="h4">Order Info</h2>
+                        <p>Firstname: {{order.firstName}}</p>
+                        <p>Lastname: {{order.lastName}}</p>
+                        <p>Address: {{order.address}}</p>
+                        <p>City: {{order.city}}</p>
+                        <p>State: {{order.state}}</p>
+                        <p>Zip: {{order.zip}}</p>
+                        <p>Gift?: {{order.gift}}</p>
+                        <p>Method: {{order.method}}</p> -->
+
+                        <button class="btn btn-black mb-4" v-on:click="">Place Order</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <div v-for="lesson in checkOut()" class="col-lg-12 p-2">
+                            <div class="p-2 border ">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mt-2">
+                                        <h4 v-text="lesson.subject"></h4>
+                                        <div class="mt-4">
+                                            <h5 class=" mb-0" v-text="lesson.location"></h5>
+                                            <p class="mb-0">Price: ${{lesson.price}}</p>
+                                            
+                                            <button class="btn btn-danger" v-on:click="removeCartItem(lesson.id)"><small>Remove</small></button>
+                                        </div>
+                                    </div>
+                                    <div class="image">
+                                        <figure class="mb-0">
+                                            <img v-bind:src="lesson.image" alt="" width="120" height="160">
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="checkOut() == ''">
+                            <div class="text-center mt-4">
+                                <img src="images/empty-box.png" alt="" width="160" height="160">
+                                <p class="mt-2"><strong>Cart Empty</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -189,9 +255,31 @@
                     this.showProduct = this.showProduct ? false : true;
                 },
                 addToCart(lesson) {
-                    this.cart.push(lesson.id)
+                    this.cart.push(lesson)
                     lesson.stock -= 1
                     console.log(this.cart)
+                },
+                checkOut(){
+                    let show = this.cart
+                    return show
+                },
+                removeCartItem(id){
+                    let showcart = this.cart
+                    let less = this.lessons
+                    for(let i = 0; i< showcart.length; i++){
+                        console.log(showcart[i].id)
+                        if(id == showcart[i].id){
+                            showcart.splice(i, 1)
+                            
+                        }
+                    }
+                    for(let i = 0; i< less.length; i++){
+                        console.log(less[i].id)
+                        if(id == less[i].id){
+                            less[i].stock += 1
+                            
+                        }
+                    }
                 },
                 cartCount(id) {
                     let count = 0
