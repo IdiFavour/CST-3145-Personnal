@@ -4,7 +4,7 @@ let lessons = [
         "subject": 'English',
         "location": 'London',
         "price": 5000,
-        "image": "/images/product.png",
+        "image": "https://img.icons8.com/ios/480/000000/circled-e.png",
         "stock": 5
 
     },
@@ -13,7 +13,7 @@ let lessons = [
         "subject": 'Music',
         "location": 'Oxford',
         "price": 4000,
-        "image": "/images/product.png",
+        "image": "https://img.icons8.com/windows/480/000000/apple-music.png",
         "stock": 9
 
     },
@@ -22,7 +22,7 @@ let lessons = [
         "subject": 'Maths',
         "location": 'York',
         "price": 7000,
-        "image": "/images/product.png",
+        "image": "https://img.icons8.com/external-outline-juicy-fish/480/000000/external-maths-school-outline-outline-juicy-fish.png",
         "stock": 11
 
     },
@@ -31,7 +31,7 @@ let lessons = [
         "subject": 'English',
         "location": 'Bristol',
         "price": 2000,
-        "image": "/images/product.png",
+        "image": "https://img.icons8.com/ios/480/000000/circled-e.png",
         "stock": 8
 
     },
@@ -40,7 +40,7 @@ let lessons = [
         "subject": 'Maths',
         "location": 'London',
         "price": 5000,
-        "image": "/images/product.png",
+        "image": "https://img.icons8.com/external-outline-juicy-fish/480/000000/external-maths-school-outline-outline-juicy-fish.png",
         "stock": 10
 
     },

@@ -128,13 +128,14 @@
                                                     <small class="text-black-50">Stock: {{lesson.stock > 0 ?
                                                         lesson.stock : "Out of Stock"}}
                                                     </small>
+                                                    <br>
                                                     <button class="btn btn-black" v-on:click="addToCart(lesson)"
                                                         :disabled="lesson.stock < 1"><small>Add to cart</small></button>
                                                 </div>
                                             </div>
                                             <div class="image">
                                                 <figure class="mb-0">
-                                                    <img v-bind:src="lesson.image" alt="" width="120" height="160">
+                                                    <img v-bind:src="lesson.image" alt="" width="100" height="100">
                                                 </figure>
                                             </div>
                                         </div>
@@ -177,33 +178,32 @@
                 <h2 class="mt-5">Checkout</h2>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="col-6">
-                            <div class="form-outline mb-4 border mt-4">
-                                <input type="text" id="form5Example1"
-                                    class="form-control" />
-                                <label class="form-label" for="form5Example1">Firstname</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-outline mb-3 border mt-4">
+                                    <input type="text" id="form5Example1"
+                                        class="form-control" />
+                                    <label class="form-label" for="form5Example1">Firstname</label>
+                                </div>
                             </div>
-                            <div class="form-outline mb-4 border">
-                                <input type="text" id="form5Example2" 
-                                    class="form-control" />
-                                <label class="form-label" for="form5Example2">Lastname</label>
+                            <div class="col-6">
+                                <div class="form-outline mb-3 border mt-4">
+                                    <input type="text" id="form5Example1"
+                                        class="form-control" />
+                                    <label class="form-label" for="form5Example1">Lastname</label>
+                                </div>
+                                
+                            </div>
+                            <div class="col-6">
+                                <div class="form-outline mb-4 border">
+                                    <input type="number" id="form5Example2" 
+                                        class="form-control" />
+                                    <label class="form-label" for="form5Example2">Phone Number</label>
+                                </div>
                             </div>
                         </div>
-
-
-
                         <br>
-                        <!-- <h2 class="h4">Order Info</h2>
-                        <p>Firstname: {{order.firstName}}</p>
-                        <p>Lastname: {{order.lastName}}</p>
-                        <p>Address: {{order.address}}</p>
-                        <p>City: {{order.city}}</p>
-                        <p>State: {{order.state}}</p>
-                        <p>Zip: {{order.zip}}</p>
-                        <p>Gift?: {{order.gift}}</p>
-                        <p>Method: {{order.method}}</p> -->
-
-                        <button class="btn btn-black mb-4" v-on:click="">Place Order</button>
+                        <button class="btn btn-black mb-4" v-on:click="placeOrder">Place Order</button>
                     </div>
                     <div class="col-lg-6">
                         <div v-for="lesson in checkOut()" class="col-lg-12 p-2">
@@ -238,6 +238,7 @@
         </div>
     </div>
     <script type="text/javascript" src="js/lessons.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         var webstore = new Vue({
             el: '#app',
@@ -280,6 +281,13 @@
                             
                         }
                     }
+                },
+                placeOrder(){
+                    Swal.fire(
+                        'Success!',
+                        'Order submitted successfully!',
+                        'success'
+                    )
                 },
                 cartCount(id) {
                     let count = 0
