@@ -83,7 +83,7 @@ let lessons = [
     {
         "id": 1010,
         "subject": 'Maths',
-        "location": 'London',
+        "location": 'York',
         "price": 5000,
         "image": "https://img.icons8.com/external-outline-juicy-fish/480/000000/external-maths-school-outline-outline-juicy-fish.png",
         "stock": 10

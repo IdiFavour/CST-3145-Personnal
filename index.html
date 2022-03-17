@@ -16,7 +16,7 @@
 <body>
     <div id="app">
         <!-- Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light container-fluid">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light shadow bg-light container-fluid">
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Toggle button -->
@@ -163,32 +163,35 @@
 
             </div>
             <div class="pt-5" v-else>
-                <h2 class="mt-5">Checkout</h2>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-outline mb-3 border mt-4">
-                                    <input type="text" id="form5Example1" class="form-control" />
-                                    <label class="form-label" for="form5Example1">Firstname</label>
+                        <div class="still">
+                            <h2 class="mt-5">Checkout</h2>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-outline mb-3 border mt-4">
+                                        <input type="text" id="form5Example1" class="form-control" />
+                                        <label class="form-label" for="form5Example1">Firstname</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-outline mb-3 border mt-4">
+                                        <input type="text" id="form5Example1" class="form-control" />
+                                        <label class="form-label" for="form5Example1">Lastname</label>
+                                    </div>
+    
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-outline mb-4 border">
+                                        <input type="number" id="form5Example2" class="form-control" />
+                                        <label class="form-label" for="form5Example2">Phone Number</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-outline mb-3 border mt-4">
-                                    <input type="text" id="form5Example1" class="form-control" />
-                                    <label class="form-label" for="form5Example1">Lastname</label>
-                                </div>
-
-                            </div>
-                            <div class="col-6">
-                                <div class="form-outline mb-4 border">
-                                    <input type="number" id="form5Example2" class="form-control" />
-                                    <label class="form-label" for="form5Example2">Phone Number</label>
-                                </div>
-                            </div>
+                            <br>
+                            <button class="btn main-color text-white mb-4" v-on:click="placeOrder">Place Order</button>
                         </div>
-                        <br>
-                        <button class="btn main-color text-white mb-4" v-on:click="placeOrder">Place Order</button>
+                        
                     </div>
                     <div class="col-lg-6">
                         <div v-for="lesson in checkOut()" class="col-lg-12 p-2">
